@@ -22,18 +22,18 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to, from, next) => {
-  let isAuthenticated = false
-  try {
-    // const res = await getMe()
-    isAuthenticated = true
-  } catch (error) {
-    isAuthenticated = false
-  }
+// router.beforeEach(async (to, from, next) => {
+//   let isAuthenticated = false
+//   try {
+//     // const res = await getMe()
+//     isAuthenticated = true
+//   } catch (error) {
+//     isAuthenticated = false
+//   }
 
-  if (to.name !== 'LoginView' && !isAuthenticated) next({ name: 'LoginView' })
-  else if (to.name === 'LoginView' && isAuthenticated) next({ name: 'ProductView' })
-  else next()
-})
+//   if (to.name !== 'LoginView' && !isAuthenticated) next({ name: 'LoginView' })
+//   else if (to.name === 'LoginView' && isAuthenticated) next({ name: 'ProductView' })
+//   else next()
+// })
 
 export default router
