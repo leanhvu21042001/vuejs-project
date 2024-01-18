@@ -27,9 +27,9 @@ const useLoginHook = () => {
     (values) => {
       mutateLogin(values, {
         onSuccess: (data) => {
-          authStore.setAuthUser(data.userName)
+          authStore.setAuthUser(data.user)
 
-          if (authStore.userName) {
+          if (authStore.user) {
             router.push({ name: 'ProductView' })
           }
         },

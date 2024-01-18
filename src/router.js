@@ -28,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   let isAuthenticated = false
 
-  if (!authStore.userName) {
+  if (!authStore.user) {
     try {
       const user = await authService.getMe()
       authStore.setAuthUser(user)
