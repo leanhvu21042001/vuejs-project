@@ -12,6 +12,11 @@ class AuthService {
     })
     return res.data
   }
+
+  async logout() {
+    const res = await http.post('/auth/logout')
+    return res.data
+  }
 }
 
 export default new AuthService()

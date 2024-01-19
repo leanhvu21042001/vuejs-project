@@ -15,8 +15,14 @@ const useLoginHook = () => {
 
   const { errors, handleSubmit, defineField, setFieldError } = useForm({
     validationSchema: yup.object({
-      email: yup.string().email().required(),
-      password: yup.string().min(3).required()
+      email: yup
+        .string('Email phải là kiểu chuổi')
+        .email('Email không đúng định dạng')
+        .required('Email không được trống'),
+      password: yup
+        .string('Password phải là kiểu chuổi')
+        .min(3, 'Độ dài ít nhất là 3 ký tự')
+        .required('Password không được trống')
     })
   })
 
@@ -30,7 +36,7 @@ const useLoginHook = () => {
           authStore.setAuthUser(data.user)
 
           if (authStore.user) {
-            router.push({ name: 'ProductView' })
+            router.push({ name: 'ListProduct' })
           }
         },
         onError: (error) => {

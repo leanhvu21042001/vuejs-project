@@ -1,20 +1,42 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import ProductView from '~/views/ProductView.vue'
-import { useAuthStore } from './stores/auth-store'
-import authService from './services/auth-service'
+import ListProduct from '~/views/product/ListProduct.vue'
+import { useAuthStore } from '~/stores/auth-store'
+import authService from '~/services/auth-service'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: { name: 'ProductView' }
+      name: 'RootPath',
+      redirect: { name: 'ListProduct' }
     },
     {
       path: '/product',
-      name: 'ProductView',
-      component: ProductView
+      name: 'ListProduct',
+      component: ListProduct
+    },
+    {
+      path: '/product/create',
+      name: 'CreateProduct',
+      component: {
+        template: ''
+      }
+    },
+    {
+      path: '/product/edit/:id',
+      name: 'EditProduct',
+      component: {
+        template: ''
+      }
+    },
+    {
+      path: '/user',
+      name: 'ListUser',
+      component: {
+        template: '<h1>List User</h1>'
+      }
     },
     {
       path: '/login',
@@ -42,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.name !== 'LoginView' && !isAuthenticated) next({ name: 'LoginView' })
-  else if (to.name === 'LoginView' && isAuthenticated) next({ name: 'ProductView' })
+  else if (to.name === 'LoginView' && isAuthenticated) next({ name: 'ListProduct' })
   else next()
 })
 
