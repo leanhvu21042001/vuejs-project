@@ -9,9 +9,7 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item">
-              <RouterLink :to="{ name: 'ListProduct' }">Sản phẩm</RouterLink>
-            </li>
+            <RouterLink class="breadcrumb-item" :to="{ name: 'ListProduct' }">Sản phẩm</RouterLink>
           </ol>
         </nav>
       </div>
@@ -188,9 +186,8 @@
                 <td
                   class="d-xxl-inline-block d-xl-inline-block d-lg-inline-block d-md-none d-sm-none d-none"
                   style="height: 130px; min-height: fit-content; overflow: hidden; width: 100%"
-                >
-                  {{ product.description }}
-                </td>
+                  v-html="product.description"
+                ></td>
                 <td class="text-success">${{ product.price }}</td>
                 <td :class="product.isSales ? 'text-success' : 'text-danger'">
                   {{ product.statusSaleText }}
@@ -299,7 +296,7 @@
   </div>
 </template>
 <script setup>
-import useGetProductsHook from '~/hooks/use-get-products-hook'
+import { useGetProductsHook } from '~/hooks'
 import { onlyNumberOnKeypress } from '~/utils/number'
 const {
   name,

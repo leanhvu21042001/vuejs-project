@@ -1,4 +1,3 @@
-import * as yup from 'yup'
 import { useForm } from 'vee-validate'
 import { useMutation } from '@tanstack/vue-query'
 
@@ -6,6 +5,7 @@ import authService from '~/services/auth-service'
 import { useAuthStore } from '~/stores'
 import { scrollIntoErrorView } from '~/helpers'
 import router from '~/router'
+import { schemaLoginValidate } from '~/validates'
 
 const useLoginHook = () => {
   const authStore = useAuthStore()
@@ -14,16 +14,7 @@ const useLoginHook = () => {
   })
 
   const { errors, handleSubmit, defineField, setFieldError } = useForm({
-    validationSchema: yup.object({
-      email: yup
-        .string('Email phải là kiểu chuổi')
-        .email('Email không đúng định dạng')
-        .required('Email không được trống'),
-      password: yup
-        .string('Password phải là kiểu chuổi')
-        .min(3, 'Độ dài ít nhất là 3 ký tự')
-        .required('Password không được trống')
-    })
+    validationSchema: schemaLoginValidate
   })
 
   const [email, emailAttrs] = defineField('email')

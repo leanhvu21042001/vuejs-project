@@ -3,5 +3,5 @@ export const scrollIntoErrorView = (firstError) => {
   el?.scrollIntoView({
     behavior: 'smooth'
   })
-  el.focus()
+  el?.focus()
 }

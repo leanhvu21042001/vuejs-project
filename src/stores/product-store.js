@@ -24,7 +24,6 @@ export const useProductStore = defineStore('productStore', () => {
   const lastPage = computed(() => paginate.value?.last_page ?? 0)
   const links = computed(() => paginate.value?.links ?? [])
   const products = computed(() => {
-    // console.log({ data: paginate.value })
     return paginate.value?.data ?? []
   })
 

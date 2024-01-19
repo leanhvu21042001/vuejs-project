@@ -36,6 +36,25 @@ class ProductService {
       products
     }
   }
+
+  async createProduct({ name, price, description, isSales, fileUpload }) {
+    const res = await http.post(
+      'product',
+      {
+        name,
+        price,
+        description,
+        is_sales: isSales,
+        fileUpload
+      },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return res.data
+  }
 }
 
 export default new ProductService()

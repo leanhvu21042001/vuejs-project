@@ -38,7 +38,7 @@ import { RouterLink } from 'vue-router'
 
 import router from '~/router'
 import { useAuthStore } from '~/stores/auth-store'
-import useLogoutHook from '~/hooks/use-logout-hook'
+import { useLogoutHook } from '~/hooks'
 import logoText from '~/assets/img/logo_text.png'
 
 const authStore = useAuthStore()
