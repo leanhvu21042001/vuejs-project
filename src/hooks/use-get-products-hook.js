@@ -15,7 +15,7 @@ const useGetProductsHook = () => {
     priceTo: 0
   })
 
-  const { handleSubmit, errors, defineField } = useForm({
+  const { handleSubmit, errors, defineField, setValues } = useForm({
     validationSchema: yup.object({
       priceFrom: yup
         .number()
@@ -69,6 +69,13 @@ const useGetProductsHook = () => {
       priceFrom: 0,
       priceTo: 0
     }
+
+    setValues({
+      name: '',
+      status: '',
+      priceFrom: 0,
+      priceTo: 0
+    })
     refetch()
   }
 

@@ -37,11 +37,6 @@ async function loadImage(file) {
     const image = new Image()
 
     image.onload = function () {
-      console.log({
-        width: image.naturalWidth,
-        height: image.naturalHeight
-      })
-
       if (image.naturalWidth > 1024 || image.naturalHeight > 1024) {
         resolve(false)
       } else {
@@ -50,10 +45,6 @@ async function loadImage(file) {
     }
 
     image.onerror = function () {
-      console.log({
-        width: image.naturalWidth,
-        height: image.naturalHeight
-      })
       reject(true)
     }
 

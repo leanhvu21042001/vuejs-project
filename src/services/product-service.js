@@ -9,32 +9,15 @@ class ProductService {
     priceFrom = '',
     priceTo = ''
   }) {
-    const res = await http.get(
-      `/product?page=${page}&perPage=${perPage}&name=${name}&status=${status}&price_from=${priceFrom}&price_to=${priceTo}`
-    )
+    const response = await http.get('product', {
+      params: { page, perPage, name, status, price_from: priceFrom, price_to: priceTo }
+    })
 
-    const paginate = res.data?.paginate ?? {}
-    const minPrice = res.data?.minPrice ?? 0
-    const maxPrice = res.data?.maxPrice ?? 0
-    const total = paginate?.total ?? 0
-    const from = paginate?.from ?? 0
-    const to = paginate?.to ?? 0
-    const lastPage = paginate?.lastPage ?? 0
-    const links = paginate?.links ?? []
-    const products = paginate?.data ?? []
+    const { data: { paginate = {}, minPrice = 0, maxPrice = 0 } = {} } = response
+    const { total = 0, from = 0, to = 0, lastPage = 0, links = [], data: products = [] } = paginate
     const isShowPaginate = total > 20
 
-    return {
-      minPrice,
-      maxPrice,
-      total,
-      from,
-      to,
-      lastPage,
-      links,
-      isShowPaginate,
-      products
-    }
+    return { minPrice, maxPrice, total, from, to, lastPage, links, isShowPaginate, products }
   }
 
   async createProduct({ name, price, description, isSales, fileUpload }) {
