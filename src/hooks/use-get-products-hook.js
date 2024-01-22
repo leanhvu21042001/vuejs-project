@@ -45,8 +45,9 @@ const useGetProductsHook = () => {
     queryKey: ['getProducts', dataSearch.value],
     queryFn: () => productService.getProducts(dataSearch.value),
     retry: 0,
+    gcTime: 0,
     refetchOnWindowFocus: false,
-    initialData: {}
+    initialData: {},
   })
 
   const onSearch = handleSubmit((values) => {

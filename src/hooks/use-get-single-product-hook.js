@@ -6,6 +6,7 @@ const useGetSingleProductHook = (id) => {
     queryKey: ['getSingleProduct', id],
     queryFn: () => productService.getSingleProduct(id),
     retry: 0,
+    gcTime: 0,
     refetchOnWindowFocus: false,
     initialData: {},
     select: (data) => data?.product ?? {}
