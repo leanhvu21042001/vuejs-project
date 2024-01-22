@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useForm } from 'vee-validate'
 import { useMutation } from '@tanstack/vue-query'
@@ -9,6 +9,8 @@ import { scrollIntoErrorView } from '~/helpers'
 import { schemaCreateProductValidate } from '~/validates'
 
 const useUpdateProductHook = (id) => {
+  const imageUrl = ref(undefined)
+
   const { mutate: mutateUpdateProduct } = useMutation({
     mutationKey: 'updateProduct',
     mutationFn: productService.updateProduct
@@ -26,11 +28,8 @@ const useUpdateProductHook = (id) => {
   const [imageName, imageNameAttrs] = defineField('imageName')
 
   const imageShow = computed(() => {
-    if (!fileUpload.value) return
-    else if (typeof fileUpload.value === 'string') {
-      setFieldError('fileUpload', null)
-      return fileUpload.value
-    }
+    if (!fileUpload.value && imageUrl.value) return imageUrl.value
+    else if (!fileUpload.value) return
 
     setFieldValue('imageName', fileUpload.value.name)
 
@@ -42,7 +41,10 @@ const useUpdateProductHook = (id) => {
   const deleteImage = () => {
     setFieldValue('fileUpload', undefined)
     setFieldValue('imageName', undefined)
+    imageUrl.value = undefined
   }
+
+  const setImageUrl = (url) => (imageUrl.value = url)
 
   const onUpdateProduct = handleSubmit(
     (values) => {
@@ -85,7 +87,8 @@ const useUpdateProductHook = (id) => {
     imageShow,
     onUpdateProduct,
     deleteImage,
-    setValues
+    setValues,
+    setImageUrl
   }
 }
 

@@ -187,15 +187,16 @@ const {
   imageShow,
   onUpdateProduct,
   deleteImage,
-  setValues
+  setValues,
+  setImageUrl
 } = useUpdateProductHook(router.currentRoute.value.params.id)
 
 watchEffect(() => {
   if (product.value) {
     setValues({
-      ...product.value,
-      fileUpload: product.value.imageUrl
+      ...product.value
     })
+    setImageUrl(product.value.imageUrl)
   }
 })
 </script>

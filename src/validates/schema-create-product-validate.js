@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { isFileSizeValid, isFileTypesValid } from '~/validates'
-import { FILE_SIZE, SUPPORTED_FORMATS, SUPPORTED_FORMATS_TEXT } from '~/constants'
+import { FILE_SIZE, IMAGE_SIZE, SUPPORTED_FORMATS, SUPPORTED_FORMATS_TEXT } from '~/constants'
 
 export const schemaCreateProductValidate = yup.object({
   // id: yup.string(),
@@ -17,12 +17,46 @@ export const schemaCreateProductValidate = yup.object({
   isSales: yup.number().required('Trạng thái không được để trống'),
   fileUpload: yup
     .mixed()
-    .test('fileSize', 'Dung lượng hình không quá 2Mb', (value) => {
-      if (!value) return true
-      return isFileSizeValid([value], FILE_SIZE)
+    .test('fileSize', 'Dung lượng hình không quá 2Mb', (file) => {
+      if (!file) return true
+      return isFileSizeValid([file], FILE_SIZE)
     })
-    .test('fileType', `không đúng định dạng ảnh, yêu cầu [${SUPPORTED_FORMATS_TEXT}]`, (value) => {
-      if (!value) return true
-      return isFileTypesValid([value], SUPPORTED_FORMATS)
+    .test('fileType', `không đúng định dạng ảnh, yêu cầu [${SUPPORTED_FORMATS_TEXT}]`, (file) => {
+      if (!file) return true
+      return isFileTypesValid([file], SUPPORTED_FORMATS)
+    })
+    .test('fileOriginSize', `Kích thước ảnh không vượt quá ${IMAGE_SIZE}px`, async (file) => {
+      if (!file) return true
+      const isLargeImage = await loadImage(file)
+      return isLargeImage
     })
 })
+
+async function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+
+    image.onload = function () {
+      console.log({
+        width: image.naturalWidth,
+        height: image.naturalHeight
+      })
+
+      if (image.naturalWidth > 1024 || image.naturalHeight > 1024) {
+        resolve(false)
+      } else {
+        resolve(true)
+      }
+    }
+
+    image.onerror = function () {
+      console.log({
+        width: image.naturalWidth,
+        height: image.naturalHeight
+      })
+      reject(true)
+    }
+
+    image.src = URL.createObjectURL(file)
+  })
+}
