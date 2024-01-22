@@ -331,17 +331,20 @@ const getPageNumberFromUrl = (link = '') => link?.split('?page=').at(1)
   vertical-align: top;
 
   .product-image {
-    max-width: 200px;
+    max-width: 100px;
     position: absolute;
     left: 0;
+    top: 0;
     transition: all 300ms;
     z-index: -1;
+    visibility: hidden;
   }
 
   &:hover > .product-image {
     left: 100%;
     display: inline-block;
     z-index: 10;
+    visibility: visible;
   }
 }
 </style>
