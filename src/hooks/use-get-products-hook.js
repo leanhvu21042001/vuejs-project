@@ -81,6 +81,7 @@ const useGetProductsHook = () => {
   const onChangePerPage = (event) => {
     dataSearch.value = {
       ...dataSearch.value,
+      page: 1,
       perPage: Number(event.target.value)
     }
 

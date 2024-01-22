@@ -3,6 +3,7 @@ import { isFileSizeValid, isFileTypesValid } from '~/validates'
 import { FILE_SIZE, SUPPORTED_FORMATS, SUPPORTED_FORMATS_TEXT } from '~/constants'
 
 export const schemaCreateProductValidate = yup.object({
+  // id: yup.string(),
   name: yup
     .string()
     .required('Vui lòng nhập tên sản phẩm')

@@ -55,6 +55,33 @@ class ProductService {
     )
     return res.data
   }
+
+  async getSingleProduct(id) {
+    const res = await http.get(`product/${id}`)
+    return res.data
+  }
+
+  async updateProduct({ id, name, price, description, isSales, fileUpload, imageName }) {
+    const res = await http.post(
+      `product/${id}`,
+      {
+        name,
+        price,
+        description,
+        is_sales: isSales,
+        fileUpload,
+        imageName,
+        // only send file for post. but mirror method for server understand
+        _method: 'PATCH'
+      },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return res.data
+  }
 }
 
 export default new ProductService()

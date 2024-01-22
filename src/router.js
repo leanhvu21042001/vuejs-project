@@ -3,8 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '~/stores/auth-store'
 import authService from '~/services/auth-service'
 
-import CreateProduct from './views/product/CreateProduct.vue'
 import ListProduct from '~/views/product/ListProduct.vue'
+import CreateProduct from '~/views/product/CreateProduct.vue'
+import EditProduct from '~/views/product/EditProduct.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,11 +26,9 @@ const router = createRouter({
       component: CreateProduct
     },
     {
-      path: '/product/edit/:id',
+      path: '/product/:id/edit',
       name: 'EditProduct',
-      component: {
-        template: ''
-      }
+      component: EditProduct
     },
     {
       path: '/user',

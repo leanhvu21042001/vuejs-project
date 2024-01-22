@@ -181,7 +181,13 @@
               <tr v-for="product in data.products" :key="product.id">
                 <th scope="row">{{ product.id }}</th>
                 <td class="product-name">
-                  {{ product.name }}
+                  <span>{{ product.name }}</span>
+                  <img
+                    v-if="product.imageUrl"
+                    :src="product.imageUrl"
+                    :alt="product.name"
+                    class="product-image"
+                  />
                 </td>
                 <td
                   class="d-xxl-inline-block d-xl-inline-block d-lg-inline-block d-md-none d-sm-none d-none"
@@ -295,6 +301,7 @@
     </main>
   </div>
 </template>
+
 <script setup>
 import { useGetProductsHook } from '~/hooks'
 import { onlyNumberOnKeypress } from '~/utils/number'
@@ -314,12 +321,27 @@ const {
   onChangePage,
   onChangePerPage
 } = useGetProductsHook()
-const getPageNumberFromUrl = (link = '') => link?.split('?page=').at(1)
 
-//! data.total
-//! data.from
-//! data.to
-// data.lastPage
-// data.links
-// data.products
+const getPageNumberFromUrl = (link = '') => link?.split('?page=').at(1)
 </script>
+
+<style scoped lang="scss">
+.product-name {
+  position: relative;
+  vertical-align: top;
+
+  .product-image {
+    max-width: 200px;
+    position: absolute;
+    left: 0;
+    transition: all 300ms;
+    z-index: -1;
+  }
+
+  &:hover > .product-image {
+    left: 100%;
+    display: inline-block;
+    z-index: 10;
+  }
+}
+</style>
