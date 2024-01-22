@@ -1,6 +1,27 @@
 <template>
   <div id="list-product">
     <main class="d-flex flex-column">
+      <Modal :show="isShowModal">
+        <template #header>
+          <p class="flex-grow-1 fs-3 text-center">Nhắc nhở</p>
+        </template>
+        <template #body>
+          <form id="form-delete-product" @submit="onDeleteProduct">
+            <p class="text-center">
+              Bạn có muốn xoá <br />
+              sản phẩm <span class="text-danger">{{ id }}</span> không
+            </p>
+            <input type="hidden" name="id" :value="id" v-bind="idAttrs" />
+          </form>
+        </template>
+        <template #footer>
+          <div class="flex-grow-1 d-flex flex-row flex-wrap justify-content-center gap-4 actions">
+            <button class="btn btn-danger" type="submit" form="form-delete-product">OK</button>
+            <button class="btn btn-warning" type="submit" @click="hideModalDelete">Hủy bỏ</button>
+          </div>
+        </template>
+      </Modal>
+
       <div
         class="container d-flex flex-row flex-wrap align-items-center justify-content-between py-5"
       >
@@ -207,12 +228,8 @@
                       <i class="fa-solid fa-pen text-white"></i>
                     </RouterLink>
 
-                    <button
-                      class="btn btn-danger btnDeleteProduct"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdropDeleteProduct"
-                    >
-                      <i class="fa-solid fa-trash-can btnDeleteProduct"></i>
+                    <button class="btn btn-danger" @click="() => showModalDelete(product.id)">
+                      <i class="fa-solid fa-trash-can"></i>
                     </button>
                   </div>
                 </td>
@@ -303,8 +320,10 @@
 </template>
 
 <script setup>
-import { useGetProductsHook } from '~/hooks'
+import Modal from '~/components/common/ModalComponent.vue'
+import { useGetProductsHook, useDeleteProductHook } from '~/hooks'
 import { onlyNumberOnKeypress } from '~/utils/number'
+
 const {
   name,
   nameAttrs,
@@ -321,6 +340,9 @@ const {
   onChangePage,
   onChangePerPage
 } = useGetProductsHook()
+
+const { id, idAttrs, isShowModal, showModalDelete, hideModalDelete, onDeleteProduct } =
+  useDeleteProductHook()
 
 const getPageNumberFromUrl = (link = '') => link?.split('?page=').at(1)
 </script>

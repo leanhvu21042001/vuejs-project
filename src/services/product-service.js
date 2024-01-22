@@ -82,6 +82,11 @@ class ProductService {
     )
     return res.data
   }
+
+  async deleteProduct(id) {
+    const res = await http.delete(`product/${id}/delete`)
+    return res.data
+  }
 }
 
 export default new ProductService()
