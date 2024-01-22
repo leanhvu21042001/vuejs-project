@@ -10,6 +10,7 @@ import { schemaLoginValidate } from '~/validates'
 const useLoginHook = () => {
   const authStore = useAuthStore()
   const { mutate: mutateLogin } = useMutation({
+    mutationKey: 'login',
     mutationFn: authService.login
   })
 

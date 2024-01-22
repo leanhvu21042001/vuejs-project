@@ -9,6 +9,7 @@ const useDeleteProductHook = () => {
   const isShowModal = ref(false)
 
   const { mutate: mutateDeleteProduct } = useMutation({
+    mutationKey: 'deleteProduct',
     mutationFn: productService.deleteProduct
   })
 

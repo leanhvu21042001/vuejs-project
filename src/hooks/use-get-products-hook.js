@@ -54,7 +54,10 @@ const useGetProductsHook = () => {
       ...dataSearch.value,
       ...values
     }
-    refetch()
+
+    if (Object.keys(values).length > 0) {
+      refetch()
+    }
   })
 
   const onResetSearch = () => {

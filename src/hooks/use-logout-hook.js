@@ -8,6 +8,7 @@ const useLogoutHook = () => {
   const authStore = useAuthStore()
 
   const { mutate: mutateLogout } = useMutation({
+    mutationKey: 'logout',
     mutationFn: authService.logout,
     onSuccess: () => {
       authStore.setAuthUser(null)

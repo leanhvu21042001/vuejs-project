@@ -10,6 +10,7 @@ import { schemaCreateProductValidate } from '~/validates'
 
 const useUpdateProductHook = (id) => {
   const { mutate: mutateUpdateProduct } = useMutation({
+    mutationKey: 'updateProduct',
     mutationFn: productService.updateProduct
   })
 
