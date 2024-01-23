@@ -1,9 +1,10 @@
 import { ref } from 'vue'
-import * as yup from 'yup'
+
 import { useForm } from 'vee-validate'
 import { useQuery } from '@tanstack/vue-query'
 
 import productService from '~/services/product-service'
+import { schemaGetProductsValidate } from '~/validates'
 
 const useGetProductsHook = () => {
   const dataSearch = ref({
@@ -16,24 +17,7 @@ const useGetProductsHook = () => {
   })
 
   const { handleSubmit, errors, defineField, setValues } = useForm({
-    validationSchema: yup.object({
-      priceFrom: yup
-        .number()
-        .transform((value) => (Number.isNaN(value) ? null : value))
-        .nullable(true)
-        .test('lessThanPriceTo', 'Giá bắt đầu phải nhỏ hơn giá kết thúc', function (value) {
-          const priceTo = this.parent.priceTo
-          return !value || !priceTo || value < priceTo
-        }),
-      priceTo: yup
-        .number()
-        .transform((value) => (Number.isNaN(value) ? null : value))
-        .nullable(true)
-        .test('greaterThanPriceFrom', 'Giá kết thúc phải lớn hơn giá bắt đầu', function (value) {
-          const priceFrom = this.parent.priceFrom
-          return !value || !priceFrom || value > priceFrom
-        })
-    })
+    validationSchema: schemaGetProductsValidate
   })
 
   const [name, nameAttrs] = defineField('name')
@@ -47,7 +31,7 @@ const useGetProductsHook = () => {
     retry: 0,
     gcTime: 0,
     refetchOnWindowFocus: false,
-    initialData: {},
+    initialData: {}
   })
 
   const onSearch = handleSubmit((values) => {
