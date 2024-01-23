@@ -2,7 +2,7 @@ import http from '~/utils/http'
 
 class AuthService {
   async getMe() {
-    return http.get('/me')
+    return (await http.get('/me')).data
   }
 
   async login({ email, password }) {
