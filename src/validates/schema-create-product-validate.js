@@ -33,6 +33,8 @@ export const schemaCreateProductValidate = yup.object({
 })
 
 async function loadImage(file) {
+  if (!isFileTypesValid([file], SUPPORTED_FORMATS)) return false
+
   return new Promise((resolve, reject) => {
     const image = new Image()
 
