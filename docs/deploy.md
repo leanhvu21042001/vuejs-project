@@ -25,6 +25,8 @@ Listen 8080
 
 # Set port cho dự án.
 <VirtualHost *:8080>
+    ServerName 192.168.55.61
+    DocumentRoot /var/www/intern_it57_vuejs
     # Alias /vue_app /var/www/intern_it57_vuejs
     # Nếu set alias thì cũng chỉnh lại base: trong vite.config.js
     <Directory /var/www/intern_it57_vuejs>
@@ -42,6 +44,9 @@ sudo systemctl restart httpd
 ```
 
 ```sh
+# Adjust Firewall
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
 # Cấp quyền truy cập port 8080
 sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
 sudo iptables-save
