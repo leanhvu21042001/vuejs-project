@@ -322,7 +322,7 @@
 <script setup>
 import Modal from '~/components/common/ModalComponent.vue'
 import { useGetProductsHook, useDeleteProductHook } from '~/hooks'
-import { onlyNumberOnKeypress } from '~/utils/number'
+import { onlyNumberOnKeypress } from '~/helpers'
 
 const {
   name,

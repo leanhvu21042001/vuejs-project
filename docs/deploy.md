@@ -26,28 +26,36 @@ vim /etc/httpd/conf/httpd.conf
 ```
 
 ```sh
-# Copy toàn bộ cho vào file trên
+Listen 8080
+
 <VirtualHost *:80>
     ServerName 192.168.55.61
     DocumentRoot /var/www/intern_it57/public
-
-    # mặc định đã có để chạy laravel
     <Directory /var/www/intern_it57/public>
-        AllowOverride All
-        Require all granted
-    </Directory>
-
-    # Tạo virtual host cho frontend app.
-    Alias /vue_app /var/www/intern_it57_vuejs
-    <Directory /var/www/intern_it57_vuejs>
-        FallbackResource /vue_app/index.html
         AllowOverride All
     </Directory>
 </VirtualHost>
 
+# Set port cho dự án.
+<VirtualHost *:8080>
+    # Alias /vue_app /var/www/intern_it57_vuejs
+    # Nếu set alias thì cũng chỉnh lại base: trong vite.config.js
+    <Directory /var/www/intern_it57_vuejs>
+        # Chỉ mở khi có alias  
+        # FallbackResource /vue_app/index.html
+        FallbackResource /index.html
+        AllowOverride All
+    </Directory>
+</VirtualHost>
 ```
 
 ```sh
 # Chạy lại apache
 sudo systemctl restart httpd
+```
+
+```sh
+# Cấp quyền truy cập port 8080
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+sudo iptables-save
 ```

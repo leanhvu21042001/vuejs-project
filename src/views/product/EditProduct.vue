@@ -149,7 +149,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 import router from '~/router'
-import { onlyNumberOnKeypress } from '~/utils/number'
+import { onlyNumberOnKeypress } from '~/helpers'
 import { useUpdateProductHook, useGetSingleProductHook } from '~/hooks'
 
 const editorConfig = ref({

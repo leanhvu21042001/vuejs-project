@@ -147,7 +147,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 import { useCreateProductHook } from '~/hooks'
-import { onlyNumberOnKeypress } from '~/utils/number'
+import { onlyNumberOnKeypress } from '~/helpers'
 
 const editorConfig = ref({
   toolbar: [

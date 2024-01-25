@@ -6,7 +6,7 @@ import { camelizeKeys, decamelizeKeys } from 'humps'
 import { FORMAT_DATE } from '~/constants'
 import { ServiceError } from './error'
 
-const http = axios.create({
+export const http = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
   withCredentials: true,
   withXSRFToken: true,
@@ -57,5 +57,3 @@ http.interceptors.request.use(
     Promise.reject(error)
   }
 )
-
-export default http
