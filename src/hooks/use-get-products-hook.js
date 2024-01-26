@@ -37,7 +37,8 @@ const useGetProductsHook = () => {
   const onSearch = handleSubmit((values) => {
     dataSearch.value = {
       ...dataSearch.value,
-      ...values
+      ...values,
+      page: 1
     }
 
     if (Object.keys(values).length > 0) {
